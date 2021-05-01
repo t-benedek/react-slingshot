@@ -9,7 +9,7 @@ jobs:
     <<: *docker-def
     steps:
       - checkout
-      - run: npm -i 
+      - run: npm i 
       - run: npm run lint
   
   j-test:
