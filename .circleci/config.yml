@@ -16,6 +16,7 @@ jobs:
     <<: *docker-def
     steps:
       - checkout
+      - run: npm i 
       - run: npm run test
   
   j-analyse:
