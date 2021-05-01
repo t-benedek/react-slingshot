@@ -1,0 +1,35 @@
+vesion: 2.1
+
+docker-def: &docker-def
+  docker: 
+    - image: circleci/node:13.8.0
+
+jobs: 
+  j-compile:
+    <<: *docker-def
+    steps:
+      - checkout
+      - run: npm run lint
+  
+  j-test:
+    <<: *docker-def
+    steps:
+      - checkout
+      - run: npm run test
+  
+  j-analyse:
+    <<: *docker-def
+    steps:
+      - checkout
+      - run: npm audit
+
+workflows:
+  w-slingshot:
+    jobs:
+      - j-compile
+      - j-test:
+          requires: 
+            - j-compile
+      - j-analyse:
+          requires: 
+            - j-test
